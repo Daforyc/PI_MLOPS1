@@ -124,6 +124,12 @@ En relación a las correlaciones, se encontraron patrones marcados entre el reto
 
 ![SR](m.gif)
 
+En el desarrollo de la API para la función del sistema de recomendación, se han tomado diversas decisiones con el objetivo de garantizar su eficiencia y accesibilidad. Una de estas decisiones importantes fue la selección de un dataset recortado que contiene únicamente los primeros 6.000 registros del conjunto de datos completo. Esta elección se realizó considerando las limitaciones técnicas y los recursos disponibles para el despliegue de la API (RENDER). 
+
+La principal razón para utilizar un dataset recortado radica en la necesidad de facilitar la carga y lectura del repositorio, evitando restricciones asociadas al tamaño y capacidad de procesamiento del conjunto de datos completo. Al trabajar con el dataset completo, se encontraron limitaciones relacionadas con restricciones de pago y espacio de RAM ocupado, lo cual afectaba la ejecución completa del despliegue del proyecto.
+
+Al seleccionar los primeros 6.000 registros, se logra reducir considerablemente el tamaño del dataset sin comprometer la representatividad y relevancia de los datos. Aunque no se disponga de la totalidad de los registros, este subconjunto de datos aún proporciona una muestra significativa que permite realizar análisis, implementar algoritmos y desarrollar funcionalidades dentro del sistema de recomendación.
+
 El sistema de recomendación implementado tiene como objetivo sugerir películas similares en función de un título ingresado. Para lograr esto, se sigue un proceso técnico que involucra la organización de los datos y la generación de una matriz de similitud utilizando los géneros y los títulos de las películas.
 
 En primer lugar, se restringe el dataset a las columnas relevantes para el cálculo de similitud, que son 'genres', 'title' e 'id'. A continuación, se realiza un preprocesamiento en la columna 'genres' para convertir los datos en dummies correspondientes a cada género presente en una película.
