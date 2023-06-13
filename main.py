@@ -61,7 +61,7 @@ def peliculas_dis(weekday: str):
         weekday = dias_semana[weekday.lower()]
     
     # Cargar el dataset
-    df = pd.read_csv("moviestrasnf2.csv")
+    df = pd.read_csv("movietrasnf2.csv")
     # Convertir la columna release_date a un objeto datetime
     df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
     # Filtrar las filas que no tienen un valor nulo en la columna release_date
