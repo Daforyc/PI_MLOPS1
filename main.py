@@ -1,6 +1,4 @@
 from fastapi import FastAPI
-#from fastapi.responses import JSONResponse
-#from fastapi.encoders import jsonable_encoder
 import pandas as pd
 import uvicorn 
 import numpy as np
@@ -11,7 +9,6 @@ from sklearn.impute import SimpleImputer
 
 
 app = FastAPI(title = 'MLOPS')
-df=pd.read_csv("movietrasnf2.csv")
 
 # introduccion
 @app.get("/")
@@ -30,10 +27,10 @@ def contacto():
 def menu():
     return "Las funciones utilizadas: peliculas_mes, peliculas_dis, franquicia, peliculas_pais, productoras, retorno, recomendacion"
 
-@app.get('/peliculas_mes/{mes}')
-def peliculas_mes(mes:str):
+@app.get('/cantidad_filmaciones_mes/{mes}')
+def cantidad_filmaciones_mes(mes:str):
     '''Se ingresa el mes y la funcion retorna la cantidad de peliculas que se estrenaron ese mes historicamente'''
-    df = pd.read_csv("movietrasnf2.csv")
+    df = pd.read_csv("movie2.csv")
     meses = {"enero": 1 ,"febrero": 2 ,"marzo": 3 ,"abril": 4 ,"mayo": 5 ,"junio": 6 ,"julio": 7 ,"agosto": 8 ,"septiembre": 9 ,"octubre": 10 ,"noviembre": 11 ,"diciembre": 12 }
     if mes not in meses:
         return "Invalid month"
@@ -42,8 +39,8 @@ def peliculas_mes(mes:str):
     cuenta =(df['release_date'].dt.month == lect).value_counts()[True]
     return {'mes': str(mes), 'cantidad': int(cuenta)}  
 
-@app.get('/peliculas_dis/{dis}')
-def peliculas_dis(weekday: str):
+@app.get('/cantidad_filmaciones_dia/{dis}')
+def cantidad_filmaciones_dia(weekday: str):
     '''Se ingresa el día y la función retorna la cantidad de películas que se estrenaron ese día históricamente'''
     # Diccionario de equivalencias de días de la semana en inglés y español
     ndia=weekday
@@ -61,7 +58,7 @@ def peliculas_dis(weekday: str):
         weekday = dias_semana[weekday.lower()]
     
     # Cargar el dataset
-    df = pd.read_csv("movietrasnf2.csv")
+    df = pd.read_csv("movie2.csv")
     # Convertir la columna release_date a un objeto datetime
     df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
     # Filtrar las filas que no tienen un valor nulo en la columna release_date
@@ -75,7 +72,7 @@ def peliculas_dis(weekday: str):
 
 @app.get('/score_titulo/{titulo}')
 def score_titulo(titulo:str):
-    df = pd.read_csv("movietrasnf2.csv", na_values=["", "NaN", "NA"], dtype={"title": str})
+    df = pd.read_csv("movie2.csv", na_values=["", "NaN", "NA"], dtype={"title": str})
     df["title"] = df["title"].fillna("") 
     df = df[df["title"].str.contains(titulo, case=False)] 
     if df.empty: 
@@ -90,7 +87,7 @@ def score_titulo(titulo:str):
 
 @app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
-    df = pd.read_csv("datasets/movietrasnf2.csv", na_values=["", "NaN", "NA"], dtype={"title": str})
+    df = pd.read_csv("movie.csv2", na_values=["", "NaN", "NA"], dtype={"title": str})
     df["title"] = df["title"].fillna("") 
     df = df[df["title"].str.contains(titulo, case=False)] 
     if df.empty: 
@@ -107,7 +104,7 @@ def votos_titulo(titulo:str):
 @app.get('/get_actor/{nombre_actor}')
 def get_actor(nombre_actor:str):
     # filtra las filas que corresponden a la franquicia de entrada y no son NaN
-    df = pd.read_csv("movietrasnf2.csv")
+    df = pd.read_csv("movie2.csv")
     actor_df = df[(df['cast'].notna()) & (df['cast'].str.contains(nombre_actor))]
     
     # si no hay filas correspondientes a la franquicia, retorna un mensaje
@@ -122,15 +119,15 @@ def get_actor(nombre_actor:str):
 
 @app.get('/get_director/{nombre_director}')
 def get_director(nombre_director:str):
-    df = pd.read_csv("movietrasnf2.csv")
+    df = pd.read_csv("movie2.csv")
     director_movies = df[df['director_name'] == nombre_director]
     total_return = director_movies['return'].sum()
-    movie_info = director_movies[['title', 'release_date', 'return', 'budget', 'revenue']]
+    movie_info = director_movies[['title','release_year', 'return', 'budget', 'revenue']]
     movies = []
     for _, row in movie_info.iterrows():
         movie = {
             'pelicula': row['title'],
-            'anio': ['release_date'],
+            'anio': row['release_year'],
             'retorno_pelicula': row['return'],
             'budget_pelicula': row['budget'],
             'revenue_pelicula': row['revenue']
@@ -143,7 +140,7 @@ def get_director(nombre_director:str):
         }
 
 # ML
-df2 = pd.read_csv("movietrasnf2.csv")
+df2 = pd.read_csv("movie2.csv")
 df2['genres'] = df2['genres'].apply(ast.literal_eval)
 generos_df = df2['genres'].str.get_dummies('|')
 @app.get('/recomendacion/{titulo}')
@@ -185,8 +182,5 @@ def recomendacion(titulo:str):
             break
     return {'lista_recomendada': recommended_movies_info}
 
-#if __name__ == "__main__":
-#    uvicorn.run(app, host="0.0.0.0", port=10000, log_level="info")
-#uvicorn.run(app, host="0.0.0.0", port=10000) 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=10000)
