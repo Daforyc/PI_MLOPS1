@@ -15,7 +15,9 @@ En esta ocasión, se realizo hacer un trabajo situándome en el rol de un ***MLO
 
 <hr>  
 
-## **!HENRY PI01]** ![Imagen](Henry.jpeg)
+## **!HENRY PI01]** !
+
+[Imagen](Henry.jpeg)
 
 ## **Descripción del problema (Contexto y rol a desarrollar)**
 
