@@ -11,7 +11,7 @@ from sklearn.impute import SimpleImputer
 
 
 app = FastAPI(title = 'MLOPS')
-df=pd.read_csv("moviestrasnf.csv")
+df=pd.read_csv("moviestrasnf2.csv")
 
 # introduccion
 @app.get("/")
@@ -33,7 +33,7 @@ def menu():
 @app.get('/peliculas_mes/{mes}')
 def peliculas_mes(mes:str):
     '''Se ingresa el mes y la funcion retorna la cantidad de peliculas que se estrenaron ese mes historicamente'''
-    df = pd.read_csv("moviestrasnf.csv")
+    df = pd.read_csv("moviestrasnf2.csv")
     meses = {"enero": 1 ,"febrero": 2 ,"marzo": 3 ,"abril": 4 ,"mayo": 5 ,"junio": 6 ,"julio": 7 ,"agosto": 8 ,"septiembre": 9 ,"octubre": 10 ,"noviembre": 11 ,"diciembre": 12 }
     if mes not in meses:
         return "Invalid month"
@@ -61,7 +61,7 @@ def peliculas_dis(weekday: str):
         weekday = dias_semana[weekday.lower()]
     
     # Cargar el dataset
-    df = pd.read_csv("moviestrasnf.csv")
+    df = pd.read_csv("moviestrasnf2.csv")
     # Convertir la columna release_date a un objeto datetime
     df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
     # Filtrar las filas que no tienen un valor nulo en la columna release_date
@@ -143,7 +143,7 @@ def get_director(nombre_director:str):
         }
 
 # ML
-df2 = pd.read_csv("moviestrasnf.csv")
+df2 = pd.read_csv("moviestrasnf2.csv")
 df2['genres'] = df2['genres'].apply(ast.literal_eval)
 generos_df = df2['genres'].str.get_dummies('|')
 @app.get('/recomendacion/{titulo}')
