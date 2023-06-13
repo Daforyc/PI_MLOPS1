@@ -88,7 +88,7 @@ def score_titulo(titulo:str):
 
 @app.get('/votos_titulo/{titulo}')
 def votos_titulo(titulo:str):
-    df = pd.read_csv("movie2.csv2", na_values=["", "NaN", "NA"], dtype={"title": str})
+    df = pd.read_csv("movie2.csv", na_values=["", "NaN", "NA"], dtype={"title": str})
     df["title"] = df["title"].fillna("") 
     df = df[df["title"].str.contains(titulo, case=False)] 
     if df.empty: 
