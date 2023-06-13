@@ -118,7 +118,9 @@ Entre los hallazgos, se destacó que los géneros más repetidos fueron el drama
 
 En relación a las correlaciones, se encontraron patrones marcados entre el retorno, el revenue y la popularidad, así como entre el presupuesto y la calificación promedio. Esto se evidenció a través de heatmaps construidos con la ayuda de Seaborn.
 
-## **`Sistema de recomendacion (MLOPS)`**: ![SR](m.gif)
+## **`Sistema de recomendacion (MLOPS)`**:
+
+![SR](m.gif)
 
 El sistema de recomendación implementado tiene como objetivo sugerir películas similares en función de un título ingresado. Para lograr esto, se sigue un proceso técnico que involucra la organización de los datos y la generación de una matriz de similitud utilizando los géneros y los títulos de las películas.
 
@@ -136,8 +138,12 @@ Esta función de recomendación permite a los usuarios descubrir películas simi
 
 ## Contacto
 ![Escribir](Edit.gif)
+
+
 Para cualquier pregunta o consulta adicional, no dude en ponerse en contacto con el autor del repositorio:
 
 ![Crecer](9TLY.gif)
+
+
 - Email: david.foca@hotmail.com
 - Github: Daforyc - [https://github.com/Daforyc](https://github.com/Dafory
