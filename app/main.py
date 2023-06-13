@@ -11,7 +11,7 @@ from sklearn.impute import SimpleImputer
 
 
 app = FastAPI(title = 'MLOPS')
-df=pd.read_csv("moviestrasnf2.csv")
+df=pd.read_csv("movietrasnf2.csv")
 
 # introduccion
 @app.get("/")
@@ -143,7 +143,7 @@ def get_director(nombre_director:str):
         }
 
 # ML
-df2 = pd.read_csv("moviestrasnf2.csv")
+df2 = pd.read_csv("movietrasnf2.csv")
 df2['genres'] = df2['genres'].apply(ast.literal_eval)
 generos_df = df2['genres'].str.get_dummies('|')
 @app.get('/recomendacion/{titulo}')
