@@ -31,7 +31,7 @@ def menu():
 def cantidad_filmaciones_mes(mes:str):
     '''Se ingresa el mes y la funcion retorna la cantidad de peliculas que se estrenaron ese mes historicamente'''
     df = pd.read_csv("movie2.csv")
-    meses = {"enero": 1 ,"febrero": 2 ,"marzo": 3 ,"abril": 4 ,"mayo": 5 ,"junio": 6 ,"julio": 7 ,"agosto": 8 ,"septiembre": 9 ,"octubre": 10 ,"noviembre": 11 ,"diciembre": 12 }
+    meses = {'enero': 1 ,'febrero': 2 ,'marzo': 3 ,'abril': 4 ,'mayo': 5 ,'junio': 6 ,'julio': 7 ,'agosto': 8 ,'septiembre': 9 ,'octubre': 10 ,'noviembre': 11 ,'diciembre': 12 }
     if mes not in meses:
         return "Invalid month"
     lect = meses[mes]
