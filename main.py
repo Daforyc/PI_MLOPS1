@@ -11,7 +11,7 @@ from sklearn.impute import SimpleImputer
 
 
 app = FastAPI(title = 'MLOPS')
-df=pd.read_csv("moviestrasnf2.csv")
+df=pd.read_csv("movietrasnf2.csv")
 
 # introduccion
 @app.get("/")
